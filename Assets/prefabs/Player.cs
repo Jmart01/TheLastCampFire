@@ -5,8 +5,11 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] float walkingSpeed = 5f;
     PlayerInputs inputActions;
+    CharacterController characterController;
     Vector2 MoveInput;
+    Vector3 velocity;
 
     private void Awake()
     {
@@ -24,6 +27,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        characterController = GetComponent<CharacterController>();
         inputActions.Gameplay.Move.performed += MoveInputUpdated;
         inputActions.Gameplay.Move.canceled += MoveInputUpdated;
     }
@@ -35,6 +39,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"player input is: {MoveInput}");
+        velocity = GetPlayerDesiredMoveDirection() * walkingSpeed;
+
+        characterController.Move(velocity * Time.deltaTime);
+    }
+
+    Vector3 GetPlayerDesiredMoveDirection()
+    {
+        return new Vector3(-MoveInput.y, 0f, MoveInput.x).normalized;
     }
 }
