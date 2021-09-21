@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] float walkingSpeed = 5f;
     [SerializeField] Transform GroundCheck;
     [SerializeField] float GroundCheckRadius = 0.1f;
+    [SerializeField] float rotationSpeed = 5f;
     [SerializeField] LayerMask GroundLayerMask;
     PlayerInputs inputActions;
     CharacterController characterController;
@@ -55,10 +56,22 @@ public class Player : MonoBehaviour
         velocity.z = GetPlayerDesiredMoveDirection().z * walkingSpeed;
         velocity.y += Gravity * Time.deltaTime;
         characterController.Move((velocity)* Time.deltaTime);
+        UpdateRotation();
     }
 
     Vector3 GetPlayerDesiredMoveDirection()
     {
         return new Vector3(-MoveInput.y, 0f, MoveInput.x).normalized;
+    }
+
+    void UpdateRotation()
+    {
+        Vector3 PlayerDesiredDir = GetPlayerDesiredMoveDirection();
+        if(PlayerDesiredDir.magnitude == 0)
+        {
+            PlayerDesiredDir = transform.forward;
+        }
+        Quaternion DesiredRotation = Quaternion.LookRotation(PlayerDesiredDir, Vector3.up);
+        transform.rotation = Quaternion.Lerp(transform.rotation, DesiredRotation, Time.deltaTime * rotationSpeed);
     }
 }
