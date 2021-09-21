@@ -6,11 +6,19 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [SerializeField] float walkingSpeed = 5f;
+    [SerializeField] Transform GroundCheck;
+    [SerializeField] float GroundCheckRadius = 0.1f;
+    [SerializeField] LayerMask GroundLayerMask;
     PlayerInputs inputActions;
     CharacterController characterController;
     Vector2 MoveInput;
     Vector3 velocity;
+    float Gravity = -9.8f;
 
+    bool IsOnGround()
+    {
+        return Physics.CheckSphere(GroundCheck.position, GroundCheckRadius, GroundLayerMask);
+    }
     private void Awake()
     {
         inputActions = new PlayerInputs();
@@ -39,9 +47,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        velocity = GetPlayerDesiredMoveDirection() * walkingSpeed;
-
-        characterController.Move(velocity * Time.deltaTime);
+        if(IsOnGround())
+        {
+            velocity.y = -0.2f;
+        }
+        velocity.x = GetPlayerDesiredMoveDirection().x * walkingSpeed;
+        velocity.z = GetPlayerDesiredMoveDirection().z * walkingSpeed;
+        velocity.y += Gravity * Time.deltaTime;
+        characterController.Move((velocity)* Time.deltaTime);
     }
 
     Vector3 GetPlayerDesiredMoveDirection()
