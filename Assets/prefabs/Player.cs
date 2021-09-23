@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform GroundCheck;
     [SerializeField] float GroundCheckRadius = 0.1f;
     [SerializeField] float rotationSpeed = 5f;
+    [SerializeField] float LadderClimbCommitAngleDegrees= 20f;
     [SerializeField] LayerMask GroundLayerMask;
     [SerializeField] Transform RayCastOrigin;
     PlayerInputs inputActions;
@@ -16,7 +17,44 @@ public class Player : MonoBehaviour
     Vector2 MoveInput;
     Vector3 velocity;
     float Gravity = -9.8f;
+    public bool isOnLadder;
 
+    List<Ladder> LaddersNearby = new List<Ladder>();
+    Ladder CurrentClimbingLadder;
+    public void NotifyLadderNearby(Ladder ladderNearby)
+    {
+        LaddersNearby.Add(ladderNearby);
+    }
+
+    public void NotifyLadderExit(Ladder ladderExit)
+    {
+        if(ladderExit == CurrentClimbingLadder)
+        {
+            CurrentClimbingLadder = null;
+        }
+        LaddersNearby.Remove(ladderExit);
+    }
+
+    Ladder FindPlayerClimbingLadder()
+    {
+        Vector3 PlayerDesiredMoveDir = GetPlayerDesiredMoveDirection();
+        Ladder ChosenLadder = null;
+        float ClosestAngle = 180;
+        foreach(Ladder ladder in LaddersNearby)
+        {
+            Vector3 LadderDir = ladder.transform.position - transform.position;
+            LadderDir.y = 0;
+            LadderDir.Normalize();
+            float Dot = Vector3.Dot(PlayerDesiredMoveDir, LadderDir);
+            float AngleInDegrees = Mathf.Acos(Dot) * Mathf.Rad2Deg;
+            if (AngleInDegrees < LadderClimbCommitAngleDegrees && AngleInDegrees < ClosestAngle)
+            {
+                ChosenLadder = ladder;
+                ClosestAngle = AngleInDegrees;
+            }
+        }
+        return ChosenLadder;
+    }
     bool IsOnGround()
     {
         return Physics.CheckSphere(GroundCheck.position, GroundCheckRadius, GroundLayerMask);
@@ -40,6 +78,7 @@ public class Player : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         inputActions.Gameplay.Move.performed += MoveInputUpdated;
         inputActions.Gameplay.Move.canceled += MoveInputUpdated;
+        isOnLadder = false;
     }
     void MoveInputUpdated(InputAction.CallbackContext ctx)
     {
@@ -49,6 +88,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(CurrentClimbingLadder == null)
+        {
+            CurrentClimbingLadder = FindPlayerClimbingLadder();
+        }
+        if(CurrentClimbingLadder!= null)
+        {
+            Debug.Log($"player wants to climb {CurrentClimbingLadder}");
+        }
         if(IsOnGround())
         {
             velocity.y = -0.2f;
