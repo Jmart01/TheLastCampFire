@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] float GroundCheckRadius = 0.1f;
     [SerializeField] float rotationSpeed = 5f;
     [SerializeField] LayerMask GroundLayerMask;
+    [SerializeField] Transform RayCastOrigin;
     PlayerInputs inputActions;
     CharacterController characterController;
     Vector2 MoveInput;
@@ -55,8 +56,14 @@ public class Player : MonoBehaviour
         velocity.x = GetPlayerDesiredMoveDirection().x * walkingSpeed;
         velocity.z = GetPlayerDesiredMoveDirection().z * walkingSpeed;
         velocity.y += Gravity * Time.deltaTime;
-        characterController.Move((velocity)* Time.deltaTime);
         UpdateRotation();
+        RaycastHit hit;
+        //Vector3 AverageBetweenForwardAndDownDir = (Vector3.forward + Vector3.down) / 2;
+        if (Physics.Raycast(RayCastOrigin.position, RayCastOrigin.TransformDirection(Vector3.down), out hit, 3f,GroundLayerMask))
+        {
+            Debug.DrawRay(RayCastOrigin.position, RayCastOrigin.TransformDirection(Vector3.down)* hit.distance, Color.blue);
+            characterController.Move((velocity) * Time.deltaTime);
+        }
     }
 
     Vector3 GetPlayerDesiredMoveDirection()
