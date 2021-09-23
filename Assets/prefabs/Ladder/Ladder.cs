@@ -38,4 +38,10 @@ public class Ladder : MonoBehaviour
             otherAsPlayer.NotifyLadderExit(this);
         }
     }
+    public Transform GetClosestSnapTransform(Vector3 Position)
+    {
+        float DistanceToTop = Vector3.Distance(Position, TopSnapTransform.position);
+        float DistanceToBot = Vector3.Distance(Position, BottomSnapTransform.position);
+        return DistanceToTop < DistanceToBot ? TopSnapTransform : BottomSnapTransform;
+    }
 }
