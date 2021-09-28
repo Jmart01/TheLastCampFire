@@ -80,6 +80,16 @@ public class Player : MonoBehaviour
         inputActions.Gameplay.Move.performed += MoveInputUpdated;
         inputActions.Gameplay.Move.canceled += MoveInputUpdated;
         isOnLadder = false;
+        inputActions.Gameplay.Interact.performed += Interact;
+    }
+
+    void Interact(InputAction.CallbackContext ctx)
+    {
+        InteractComponent interactComp = GetComponentInChildren<InteractComponent>();
+        if(interactComp != null)
+        {
+            interactComp.Interact();
+        }
     }
     void MoveInputUpdated(InputAction.CallbackContext ctx)
     {
@@ -92,11 +102,33 @@ public class Player : MonoBehaviour
         if(ladderToHopOn != CurrentClimbingLadder)
         {
             Transform snapToTransform = ladderToHopOn.GetClosestSnapTransform(transform.position);
-            characterController.Move(snapToTransform.position - transform.position);
-            transform.rotation = snapToTransform.rotation;
             CurrentClimbingLadder = ladderToHopOn;
+            StartCoroutine(MoveToTransform(snapToTransform, 0.2f));
             Debug.Log("Hopped on ladder");
         }
+    }
+
+    IEnumerator MoveToTransform(Transform Destination, float transformTime)
+    {
+        inputActions.Gameplay.Move.Disable();
+
+        Vector3 StartPos = transform.position;
+        Vector3 EndPos = Destination.position;
+        Quaternion StartRot = transform.rotation;
+        Quaternion EndRot = Destination.rotation;
+
+        float timer = 0f;
+        while(timer < transformTime)
+        {
+            timer += Time.deltaTime;
+            //move in here
+            Vector3 DeltaMove = Vector3.Lerp(StartPos, EndPos, timer / transformTime) - transform.position;
+            characterController.Move(DeltaMove);
+            // Rot here
+            transform.rotation = Quaternion.Lerp(StartRot, EndRot, timer / transformTime);
+            yield return new WaitForEndOfFrame();
+        }
+        inputActions.Gameplay.Move.Enable();
     }
 
     // Update is called once per frame
@@ -139,15 +171,20 @@ public class Player : MonoBehaviour
         if(MoveInput.magnitude == 0)
         {
             velocity = Vector3.zero;
+            return;
         }
         Vector3 LadderDir = CurrentClimbingLadder.transform.forward;
         Vector3 PlayerDesiredMoveDir = GetPlayerDesiredMoveDirection();
 
         float Dot = Vector3.Dot(LadderDir, PlayerDesiredMoveDir);
-
-        if(Dot < 0)
+        Debug.Log(Dot);
+        velocity = Vector3.zero;
+        if(Dot > 0)
         {
+            
+            velocity = GetPlayerDesiredMoveDirection() * walkingSpeed;
             velocity.y = walkingSpeed;
+            Debug.Log($"GoingUp with velocity: {velocity}");
         }
         else
         {
@@ -155,8 +192,9 @@ public class Player : MonoBehaviour
             {
                 velocity = GetPlayerDesiredMoveDirection() * walkingSpeed;
             }
-            velocity.y = -walkingSpeed;
+            velocity.y = -walkingSpeed; 
         }
+        characterController.Move((velocity) * Time.deltaTime);
     }
 
     Vector3 GetPlayerDesiredMoveDirection()
