@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
+    GameObject Owner;
     // Start is called before the first frame update
     void Start()
     {

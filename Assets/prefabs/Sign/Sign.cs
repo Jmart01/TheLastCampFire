@@ -63,10 +63,11 @@ public class Sign : Interactable
             yield return new WaitForEndOfFrame();
         }
         SetOpacity(newOpacity);
-        Debug.Log(newOpacity);
     }
     private void OnTriggerEnter(Collider other)
     {
+        currentDialogIndex = 0;
+        DialogText.text = dialogs[currentDialogIndex];
         InteractComponent interactComp = other.GetComponent<InteractComponent>();
         if(interactComp != null)
         {
@@ -95,6 +96,11 @@ public class Sign : Interactable
 
     public override void Interact()
     {
+        if (DialogText.text == dialogs[2])
+        {
+            StartCoroutine(TranstionOpacityTo(0));
+            return;
+        }
         GoToNextDialog();
     }
 }

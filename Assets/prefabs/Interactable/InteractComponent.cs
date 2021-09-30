@@ -49,7 +49,6 @@ public class InteractComponent : MonoBehaviour
         Interactable closestInteractable = GetClosestInteractable();
         if(closestInteractable != null)
         {
-            Debug.Log("closest interactable is not null");
             closestInteractable.Interact();
         }
     }

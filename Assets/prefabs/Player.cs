@@ -104,7 +104,6 @@ public class Player : MonoBehaviour
             Transform snapToTransform = ladderToHopOn.GetClosestSnapTransform(transform.position);
             CurrentClimbingLadder = ladderToHopOn;
             StartCoroutine(MoveToTransform(snapToTransform, 0.2f));
-            Debug.Log("Hopped on ladder");
         }
     }
 
@@ -177,14 +176,12 @@ public class Player : MonoBehaviour
         Vector3 PlayerDesiredMoveDir = GetPlayerDesiredMoveDirection();
 
         float Dot = Vector3.Dot(LadderDir, PlayerDesiredMoveDir);
-        Debug.Log(Dot);
         velocity = Vector3.zero;
         if(Dot > 0)
         {
             
             velocity = GetPlayerDesiredMoveDirection() * walkingSpeed;
             velocity.y = walkingSpeed;
-            Debug.Log($"GoingUp with velocity: {velocity}");
         }
         else
         {
