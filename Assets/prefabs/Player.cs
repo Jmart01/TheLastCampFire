@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] float LadderClimbCommitAngleDegrees= 20f;
     [SerializeField] LayerMask GroundLayerMask;
     [SerializeField] Transform RayCastOrigin;
+    [SerializeField] Transform PickupSocketTransform;
     PlayerInputs inputActions;
     CharacterController characterController;
     Vector2 MoveInput;
@@ -21,6 +22,13 @@ public class Player : MonoBehaviour
 
     List<Ladder> LaddersNearby = new List<Ladder>();
     Ladder CurrentClimbingLadder;
+
+    public Transform GetPickupSocketTransform()
+    {
+        return PickupSocketTransform;
+    }
+
+
     public void NotifyLadderNearby(Ladder ladderNearby)
     {
         LaddersNearby.Add(ladderNearby);
