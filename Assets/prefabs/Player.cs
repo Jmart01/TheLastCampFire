@@ -175,6 +175,7 @@ public class Player : MonoBehaviour
     }
     void CalculateClimbingVelocity()
     {
+        velocity = Vector3.zero;
         if(MoveInput.magnitude == 0)
         {
             velocity = Vector3.zero;

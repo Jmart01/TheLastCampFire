@@ -21,11 +21,15 @@ public class Ladder : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Player otherAsPlayer = other.GetComponent<Player>();
-        if(otherAsPlayer!=null)
+        if(this.enabled == true)
         {
-            otherAsPlayer.NotifyLadderNearby(this);
+            Player otherAsPlayer = other.GetComponent<Player>();
+            if (otherAsPlayer != null)
+            {
+                otherAsPlayer.NotifyLadderNearby(this);
+            }
         }
+        
         //other.GetComponent<Transform>().position.y = gameObject.GetComponent<BoxCollider>().transform.position.y;
         //other.GetComponent<Player>().MoveOnLadder(GetComponent<BoxCollider>().center.y);
     }
