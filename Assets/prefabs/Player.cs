@@ -20,6 +20,14 @@ public class Player : MonoBehaviour
     float Gravity = -9.8f;
     public bool isOnLadder;
 
+    Transform currentFloor;
+    Vector3 PreviousWorldPos;
+    Vector3 PreviousFloorLocalPos;
+    Quaternion PreviousWorldRotation;
+    Quaternion PreviousFloorLocalRotation;
+
+
+
     List<Ladder> LaddersNearby = new List<Ladder>();
     Ladder CurrentClimbingLadder;
 
@@ -64,6 +72,34 @@ public class Player : MonoBehaviour
         }
         return ChosenLadder;
     }
+
+    void CheckFloor()
+    {
+        Collider[] cols = Physics.OverlapSphere(GroundCheck.position, GroundCheckRadius, GroundLayerMask);
+        if(cols.Length != 0)
+        {
+            if(currentFloor != cols[0].transform)
+            {
+                currentFloor = cols[0].transform;
+                SnapShotPositionAndRotation();
+            }
+        }
+    }
+
+    void SnapShotPositionAndRotation()
+    {
+        PreviousWorldPos = transform.position;
+        PreviousWorldRotation = transform.rotation;
+        
+        if(currentFloor != null)
+        {
+            PreviousFloorLocalPos = currentFloor.InverseTransformPoint(transform.position);
+            PreviousFloorLocalRotation = Quaternion.Inverse(currentFloor.rotation) * transform.rotation;
+            //to add 2 rotations you do quaternionA * QuaternionB
+            //to subtract you do quaternion.Inverse(QuaternionA) * QuaternionB
+        }
+    }
+
     bool IsOnGround()
     {
         return Physics.CheckSphere(GroundCheck.position, GroundCheckRadius, GroundLayerMask);
@@ -141,7 +177,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(CurrentClimbingLadder == null)
+        
+        if (CurrentClimbingLadder == null)
         {
             HopOnLadder(FindPlayerClimbingLadder());
         }
@@ -152,6 +189,22 @@ public class Player : MonoBehaviour
         else
         {
             CalculateWalkingVelocity();
+        }
+        SnapShotPositionAndRotation();
+    }
+
+
+    void followFloor()
+    {
+        if(currentFloor)
+        {
+            Vector3 DeltaMove = currentFloor.TransformPoint(PreviousFloorLocalPos) - PreviousWorldPos;
+            velocity += DeltaMove / Time.deltaTime;
+
+            Quaternion DestinationRot = currentFloor.rotation * PreviousFloorLocalRotation;
+            Quaternion DeltaRot = Quaternion.Inverse(PreviousWorldRotation) * DestinationRot;
+
+            transform.rotation = transform.rotation * DeltaRot;
         }
     }
 
@@ -170,6 +223,8 @@ public class Player : MonoBehaviour
         if (Physics.Raycast(RayCastOrigin.position, RayCastOrigin.TransformDirection(Vector3.down), out hit, 3f, GroundLayerMask))
         {
             Debug.DrawRay(RayCastOrigin.position, RayCastOrigin.TransformDirection(Vector3.down) * hit.distance, Color.blue);
+            CheckFloor();
+            followFloor();
             characterController.Move((velocity) * Time.deltaTime);
         }
     }
