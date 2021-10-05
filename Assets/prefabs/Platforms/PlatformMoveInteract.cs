@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlatformMoveInteract : Interactable
 {
-    [SerializeField] Platform platformToMove;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +19,7 @@ public class PlatformMoveInteract : Interactable
 
     public override void Interact(GameObject InteractingObject)
     {
+        /*
         Player InteractorAsPlayer = InteractingObject.GetComponent<Player>();
         Debug.Log(InteractorAsPlayer.name);
         if (InteractorAsPlayer != null)
@@ -33,9 +33,11 @@ public class PlatformMoveInteract : Interactable
         {
             Debug.Log("something is wrong");
             return;
-        }
+        }*/
+
+        GetComponentInChildren<Platform>().MoveTo(true);
     }
-    IEnumerator WaitForCoroutine(GameObject player)
+    /*IEnumerator WaitForCoroutine(GameObject player)
     {
         while(platformToMove.GetCoroutine() != null)
         {
@@ -43,5 +45,5 @@ public class PlatformMoveInteract : Interactable
             yield return new WaitForEndOfFrame();
         }
         player.GetComponent<CharacterController>().enabled = true;
-    }
+    }*/
 }
