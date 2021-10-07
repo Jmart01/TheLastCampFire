@@ -36,11 +36,13 @@ public class Platform : MonoBehaviour
     IEnumerator MoveToTrans(Transform Destination, float TransitionTime)
     {
         float timer = 0f;
+        Vector3 originPos = ObjectToMove.position;
+        Quaternion originRot = ObjectToMove.rotation;
         while(timer < TransitionTime)
         {
             timer += Time.deltaTime;
-            ObjectToMove.position = Vector3.Lerp(ObjectToMove.position, Destination.position, timer/TransitionTime);
-            ObjectToMove.rotation = Quaternion.Lerp(ObjectToMove.rotation, Destination.rotation, timer / TransitionTime);
+            ObjectToMove.position = Vector3.Lerp(originPos, Destination.position, timer/TransitionTime);
+            ObjectToMove.rotation = Quaternion.Lerp(originRot, Destination.rotation, timer / TransitionTime);
             yield return new WaitForEndOfFrame();
         }
         MovingCoroutine = null;
