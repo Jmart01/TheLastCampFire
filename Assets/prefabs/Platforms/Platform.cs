@@ -2,7 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Platform : MonoBehaviour
+public interface Togglable
+{
+    void ToggleOn();
+    void ToggleOff();
+}
+
+
+public class Platform : MonoBehaviour, Togglable
 {
     [SerializeField] Transform ObjectToMove;
     [SerializeField] float transitionTime;
@@ -11,6 +18,16 @@ public class Platform : MonoBehaviour
 
     public Transform StartTrans;
     public Transform EndTrans;
+
+    public void ToggleOn()
+    {
+        MoveTo(true);
+    }
+
+    public void ToggleOff()
+    {
+        MoveTo(false);
+    }
 
     public void MoveTo(bool ToEnd)
     {

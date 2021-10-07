@@ -7,6 +7,7 @@ public class Ladder : MonoBehaviour
     [SerializeField] Transform TopSnapTransform;
     [SerializeField] Transform BottomSnapTransform;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,7 @@ public class Ladder : MonoBehaviour
     {
         if(this.enabled == true)
         {
-            Player otherAsPlayer = other.GetComponent<Player>();
+            LadderClimbingComp otherAsPlayer = other.GetComponent<LadderClimbingComp>();
             if (otherAsPlayer != null)
             {
                 otherAsPlayer.NotifyLadderNearby(this);
@@ -36,7 +37,7 @@ public class Ladder : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Player otherAsPlayer = other.GetComponent<Player>();
+        LadderClimbingComp otherAsPlayer = other.GetComponent<LadderClimbingComp>();
         if (otherAsPlayer != null)
         {
             otherAsPlayer.NotifyLadderExit(this);

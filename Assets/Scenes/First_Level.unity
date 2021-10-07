@@ -462,6 +462,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7202008219029365073, guid: 60ee61b107ddee04ebe6b3afab332f46, type: 3}
   m_PrefabInstance: {fileID: 9488684}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &22243560 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8603328528378298950, guid: 14680eae351921e4591139ea148f810a, type: 3}
+  m_PrefabInstance: {fileID: 181613653}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &23714748
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2692,6 +2697,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7202008219029365073, guid: 60ee61b107ddee04ebe6b3afab332f46, type: 3}
   m_PrefabInstance: {fileID: 118901533}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &125060967 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8603328528378298950, guid: 14680eae351921e4591139ea148f810a, type: 3}
+  m_PrefabInstance: {fileID: 1248075991}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &129696203
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2953,11 +2963,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2653910785941749020, guid: fb0944776bdb32a41b3671200c43fa3d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.026021102
+      value: -0.026021134
       objectReference: {fileID: 0}
     - target: {fileID: 2653910785941749020, guid: fb0944776bdb32a41b3671200c43fa3d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.014229341
+      value: -0.014229357
       objectReference: {fileID: 0}
     - target: {fileID: 2653910785941749020, guid: fb0944776bdb32a41b3671200c43fa3d, type: 3}
       propertyPath: m_LocalRotation.y
@@ -11841,7 +11851,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 506570230621551484, guid: 14680eae351921e4591139ea148f810a, type: 3}
   m_PrefabInstance: {fileID: 181613653}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 22243560}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21750e9b8c508a641b04e339d7caa920, type: 3}
@@ -11928,6 +11938,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5981124581461513764, guid: 8291ab437557a6647b5235f7a7ccf92c, type: 3}
+      propertyPath: TogglingObject
+      value: 
+      objectReference: {fileID: 22243560}
     - target: {fileID: -5981124581461513764, guid: 8291ab437557a6647b5235f7a7ccf92c, type: 3}
       propertyPath: platformToMove
       value: 
@@ -22357,7 +22371,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.0983956, y: 1}
+    m_SensorSize: {x: 2.1944895, y: 1}
     Iso: 200
     ShutterSpeed: 0.005
     Aperture: 16
@@ -24165,6 +24179,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7202008219029365073, guid: 60ee61b107ddee04ebe6b3afab332f46, type: 3}
   m_PrefabInstance: {fileID: 1153478112}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1153825952 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7352404040583732012, guid: b9e9b8a69adee1248ad1096dd3b9dfc4, type: 3}
+  m_PrefabInstance: {fileID: 1026162870}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1171217532
 PrefabInstance:
@@ -30179,6 +30198,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ladder (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5861444806086682709, guid: b4e88086ac97fc642a2240ff1929022f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8068664998790113141, guid: b4e88086ac97fc642a2240ff1929022f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4e88086ac97fc642a2240ff1929022f, type: 3}
 --- !u!1001 &1412622295
@@ -31941,6 +31968,40 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7620965043839651763, guid: b9e9b8a69adee1248ad1096dd3b9dfc4, type: 3}
   m_PrefabInstance: {fileID: 1026162870}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1522256719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522256718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 727910d9b1540344d8a0e8800707d6aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkingSpeed: 5
+  rotationSpeed: 5
+  GroundCheckRadius: 0.1
+  RayCastOrigin: {fileID: 2012673121}
+  GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  GroundCheck: {fileID: 1153825952}
+--- !u!114 &1522256722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522256718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b841051966b1b498ba050e0800c1ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LadderClimbCommitAngleDegrees: 20
+  LadderHopOnTime: 0.2
 --- !u!1001 &1526759827
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36477,15 +36538,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2653910785941749020, guid: fb0944776bdb32a41b3671200c43fa3d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.4733056
+      value: 0.47330564
       objectReference: {fileID: 0}
     - target: {fileID: 2653910785941749020, guid: fb0944776bdb32a41b3671200c43fa3d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.02531711
+      value: -0.025317058
       objectReference: {fileID: 0}
     - target: {fileID: 2653910785941749020, guid: fb0944776bdb32a41b3671200c43fa3d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0136101
+      value: 0.013610074
       objectReference: {fileID: 0}
     - target: {fileID: 2653910785941749020, guid: fb0944776bdb32a41b3671200c43fa3d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -37616,7 +37677,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 506570230621551484, guid: 14680eae351921e4591139ea148f810a, type: 3}
   m_PrefabInstance: {fileID: 1248075991}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 125060967}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21750e9b8c508a641b04e339d7caa920, type: 3}
@@ -41742,6 +41803,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5236078868935419280, guid: fc3606814b105d944aebbeed94d35dc4, type: 3}
   m_PrefabInstance: {fileID: 2012425131}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2012673121 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5663721181519979392, guid: b9e9b8a69adee1248ad1096dd3b9dfc4, type: 3}
+  m_PrefabInstance: {fileID: 1026162870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2022227711
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42480,6 +42546,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5981124581461513764, guid: 8291ab437557a6647b5235f7a7ccf92c, type: 3}
+      propertyPath: TogglingObject
+      value: 
+      objectReference: {fileID: 125060967}
     - target: {fileID: -5981124581461513764, guid: 8291ab437557a6647b5235f7a7ccf92c, type: 3}
       propertyPath: platformToMove
       value: 
