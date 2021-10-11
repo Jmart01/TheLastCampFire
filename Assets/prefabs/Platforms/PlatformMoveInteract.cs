@@ -35,7 +35,7 @@ public class PlatformMoveInteract : Interactable
             return;
         }*/
 
-        GetComponentInChildren<Platform>().MoveTo(true);
+        GetComponentInChildren<Platform>().ToggleOn();
     }
     /*IEnumerator WaitForCoroutine(GameObject player)
     {
